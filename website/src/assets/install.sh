@@ -29,6 +29,11 @@ else
 			else
 				target="riscv64-unknown-linux-musl"
 			fi ;;
+		"Linux loongarch64")
+			is_musl=$(ldd /bin/sh | grep 'musl' || true)
+			if [ -z "$is_musl" ]; then
+				target="loongarch64-unknown-linux-gnu"
+			fi ;;
 		*)
 			is_musl=$(ldd /bin/sh | grep 'musl' || true)
 			if [ -z "$is_musl" ]; then
@@ -37,6 +42,15 @@ else
 				target="x86_64-unknown-linux-musl"
 			fi ;;
 	esac
+fi
+
+if [ -z "$target" ]; then
+  if [ -z "$is_musl" ]; then
+    echo "Error: Unsupported architecture: $(uname -sm)" 1>&2
+  else
+    echo "Error: Unsupported architecture: $(uname -sm) with musl" 1>&2
+  fi
+  exit 1
 fi
 
 if [ $# -eq 0 ]; then

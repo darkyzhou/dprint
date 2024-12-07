@@ -60,6 +60,9 @@ rkyv = "=0.8.9"
 wasmer = "=5.0.2"
 wasmer-compiler = "=5.0.2"
 
+[target.'cfg(target_arch = "loongarch64")'.dependencies]
+wasmer-compiler-llvm = "=5.0.2"
+
 [target.'cfg(windows)'.dependencies]
 winreg = "=0.52.0"
 

@@ -4,7 +4,6 @@ use anyhow::bail;
 use anyhow::Result;
 use dprint_core::plugins::CancellationToken;
 use wasmer::sys::EngineBuilder;
-use wasmer::Cranelift;
 use wasmer::EngineRef;
 use wasmer::ExportError;
 use wasmer::Function;
@@ -94,7 +93,12 @@ pub struct WasmModuleCreator {
 
 impl Default for WasmModuleCreator {
   fn default() -> Self {
-    let compiler = Cranelift::default();
+    #[cfg(not(target_arch = "loongarch64"))]
+    let compiler = wasmer::Cranelift::default();
+
+    #[cfg(target_arch = "loongarch64")]
+    let compiler = wasmer_compiler_llvm::LLVM::default();
+
     let engine = EngineBuilder::new(compiler).engine();
     let engine: wasmer::Engine = engine.into();
     Self { engine }

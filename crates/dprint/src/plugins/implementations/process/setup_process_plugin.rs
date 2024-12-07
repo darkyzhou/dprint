@@ -125,6 +125,8 @@ struct ProcessPluginFile {
   linux_riscv64: Option<ProcessPluginPath>,
   #[serde(rename = "linux-riscv64-musl")]
   linux_riscv64_musl: Option<ProcessPluginPath>,
+  #[serde(rename = "linux-loongarch64")]
+  linux_loongarch64: Option<ProcessPluginPath>,
   #[serde(rename = "darwin-x86_64")]
   darwin_x86_64: Option<ProcessPluginPath>,
   #[serde(rename = "darwin-aarch64")]
@@ -217,6 +219,7 @@ fn get_os_path<'a>(plugin_file: &'a ProcessPluginFile, environment: &impl Enviro
       "x86_64" => plugin_file.linux_x86_64.as_ref(),
       "aarch64" => plugin_file.linux_aarch64.as_ref().or(plugin_file.linux_x86_64.as_ref()),
       "riscv64" => plugin_file.linux_riscv64.as_ref(),
+      "loongarch64" => plugin_file.linux_loongarch64.as_ref(),
       _ => None,
     },
     "linux-musl" => match arch.as_str() {
