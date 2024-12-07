@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <script async="" src="/scripts.js"></script>
+    <meta charset="utf-8">
+    <title>CLI - dprint - Code Formatter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Documentation on dprint's command-line interface (CLI).">
+    <meta name="author" content="Dprint Code Formatting">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@dprintfmt">
+    <meta name="twitter:title" content="CLI">
+    <meta name="twitter:description" content="Documentation on dprint's command-line interface (CLI).">
+    
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <h1 class="title"><a href="/">dprint</a></h1>
+
+        <a role="button" id="navbarBurger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarLinks">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="navbarLinks">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/overview">Overview</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="/sponsor">Sponsor</a>
+          <a class="navbar-item" href="https://github.com/dprint/dprint" rel="noopener noreferrer">View on GitHub</a>
+        </div>
+      </div>
+    </nav>
+    <section class="section" id="content">
+  <div class="columns">
+    <aside class="menu column is-narrow" style="width: 210px">
+      <ul class="menu-list">
+        <li><a href="/overview">Overview</a></li>
+        <li><a href="/install">Install</a></li>
+        <li><a href="/setup">Setup</a></li>
+        <li><a href="/config">Configuration</a></li>
+        <li><a href="/cli">CLI</a></li>
+        <li><a href="/ci">Continuous Integration</a></li>
+      </ul>
+      <p class="menu-label">Plugins</p>
+      <ul class="menu-list">
+        <li><a href="/plugins">General</a></li>
+        <li><a href="/plugins/typescript">TypeScript / JavaScript</a></li>
+        <li><a href="/plugins/json">JSON</a></li>
+        <li><a href="/plugins/markdown">Markdown</a></li>
+        <li><a href="/plugins/toml">TOML</a></li>
+        <li><a href="/plugins/pretty_yaml">Pretty YAML</a></li>
+        <li><a href="/plugins/dockerfile">Dockerfile</a></li>
+        <li><a href="/plugins/rustfmt">Rustfmt</a></li>
+        <li><a href="/plugins/roslyn">Roslyn (C#/VB)</a></li>
+        <li><a href="/plugins/malva">Malva (CSS/SCSS/Sass/Less)</a></li>
+        <li><a href="/plugins/markup_fmt">Markup_fmt (HTML/Vue/Svelte/Astro)</a></li>
+        <li><a href="/plugins/prettier">Prettier</a></li>
+        <li><a href="/plugins/biome">Biome (JS/TS/JSON)</a></li>
+        <li><a href="/plugins/pretty_graphql">Pretty GraphQL</a></li>
+        <li><a href="/plugins/ruff">Ruff (Python)</a></li>
+        <li><a href="/plugins/jupyter">Jupyter</a></li>
+        <li><a href="/plugins/exec">Exec (Many CLIs)</a></li>
+        <li><a href="/plugin-dev">Creating a Plugin</a></li>
+      </ul>
+    </aside>
+    <div id="content-body" class="column documentation">
+      <h1>Command Line Interface (CLI)</h1>
+<pre><code class="language-sh hljs language-bash">dprint &lt;SUBCOMMAND&gt; [OPTIONS] [--] [files]...
+</code></pre>
+<h2 id="installing-and-setup%2Finitialization" tabindex="-1"><a class="header-anchor" href="#installing-and-setup%2Finitialization">Installing and Setup/Initialization</a></h2>
+<p>See <a href="/install">Install</a> and <a href="/setup">Setup</a>.</p>
+<h2 id="upgrade" tabindex="-1"><a class="header-anchor" href="#upgrade">Upgrade</a></h2>
+<p>In versions &gt;= 0.30, you can upgrade to the latest version by running <code>dprint upgrade</code>.</p>
+<h2 id="help" tabindex="-1"><a class="header-anchor" href="#help">Help</a></h2>
+<p>The information outlined here will only be for the latest version, so <code>dprint help</code> or <code>dprint help &lt;SUBCOMMAND&gt;</code> (ex. <code>dprint help fmt</code>) will output information on how to use the CLI and give more detail about some of the flags not mentioned here.</p>
+<h2 id="formatting-files" tabindex="-1"><a class="header-anchor" href="#formatting-files">Formatting Files</a></h2>
+<p>After <a href="/setup">setting up a configuration file</a>, run the <code>fmt</code> command:</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span>
+</code></pre>
+<p>To format a subset of the files the configuration file matches, you may specify the file paths to format or not format:</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span> **/*.js --excludes **/data
+</code></pre>
+<p>A rare use case, but to override/ignore the patterns in the config file, use the <code>--includes-override</code> and <code>--excludes-override</code> flags:</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span> --includes-override **/*.js --excludes-override **/data
+</code></pre>
+<h3 id="formatting-only-git-staged-files" tabindex="-1"><a class="header-anchor" href="#formatting-only-git-staged-files">Formatting only git staged files</a></h3>
+<p>Requires dprint &gt;= 0.47.0</p>
+<p>To format only files that are staged use the <code>--staged</code> flag:</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span> --staged
+</code></pre>
+<p>Note: This requires that <a href="https://git-scm.com/">git</a> is installed and that you use git for source control.</p>
+<h3 id="formatting-standard-input" tabindex="-1"><a class="header-anchor" href="#formatting-standard-input">Formatting Standard Input</a></h3>
+<p>Use <code>dprint fmt --stdin &lt;file-path/file-name/extension&gt;</code> and provide the input file text to stdin. The output will be directed by the CLI to stdout.</p>
+<p>Provide a full file path to format with inclusion/exclusion rules of your dprint configuration file or provide only a file name or extension to always format the file.</p>
+<h2 id="checking-what-files-aren't-formatted" tabindex="-1"><a class="header-anchor" href="#checking-what-files-aren't-formatted">Checking What Files Aren't Formatted</a></h2>
+<p>Instead of formatting files, you can get a report of any files that aren't formatted by running:</p>
+<pre><code class="language-sh hljs language-bash">dprint check
+</code></pre>
+<p>Example output:</p>
+<p><img src="/images/check-example.png" alt="Example of dprint check output." title="Example of dprint check output."></p>
+<p>If you wish to only output the file paths and not any diffs, dprint 0.42 and above supports the <code>--list-different</code> flag.</p>
+<h2 id="incremental-formatting" tabindex="-1"><a class="header-anchor" href="#incremental-formatting">Incremental Formatting</a></h2>
+<p>By default, dprint will only format files that have changed since the last time you formatted the code in order to drastically improve performance.</p>
+<p>If you want to disable this functionality, you may specify <code>--incremental=false</code> on the CLI:</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span> --incremental=<span class="hljs-literal">false</span>
+</code></pre>
+<p>Alternatively, specify the following in your dprint configuration file:</p>
+<pre><code class="language-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"incremental"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+  <span class="hljs-comment">// etc...</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="using-a-custom-config-file-path-or-url" tabindex="-1"><a class="header-anchor" href="#using-a-custom-config-file-path-or-url">Using a Custom Config File Path or URL</a></h2>
+<p>Instead of the default dprint configuration paths you may specify a path to a configuration file via the <code>--config</code> or <code>-c</code> flag.</p>
+<pre><code class="language-sh hljs language-bash">dprint <span class="hljs-built_in">fmt</span> --config path/to/my/config.json
+<span class="hljs-comment"># or specify a URL</span>
+dprint <span class="hljs-built_in">fmt</span> --config https://dprint.dev/path/to/some/config.json
+</code></pre>
+<p>This flag is more useful for one-off commands. It is recommended to use the default configuration file location and name as that will lead to a better user experience.</p>
+<h2 id="exit-codes" tabindex="-1"><a class="header-anchor" href="#exit-codes">Exit codes</a></h2>
+<ul>
+<li><code>0</code> - Success</li>
+<li><code>1</code> - General error</li>
+<li><code>10</code> - Argument parsing error</li>
+<li><code>11</code> - Configuration resolution error</li>
+<li><code>12</code> - Plugin resolution error</li>
+<li><code>13</code> - No plugins found error</li>
+<li><code>14</code> - No files found error (or suppress to <code>0</code> with <code>--allow-no-files</code> in dprint &gt;= 0.43)</li>
+<li><code>20</code> - <code>dprint check</code> found non-formatted files</li>
+</ul>
+<h2 id="shell-completions" tabindex="-1"><a class="header-anchor" href="#shell-completions">Shell completions</a></h2>
+<p>Shell completions can be generated by running <code>dprint completions &lt;shell&gt;</code> in dprint 0.39+.</p>
+<p>Supported shells:</p>
+<ul>
+<li><code>bash</code></li>
+<li><code>elvish</code></li>
+<li><code>fish</code></li>
+<li><code>powershell</code></li>
+<li><code>zsh</code></li>
+</ul>
+<p>Example (bash):</p>
+<pre><code class="language-sh hljs language-bash">dprint completions bash &gt; /usr/local/etc/bash_completion.d/dprint.bash
+<span class="hljs-built_in">source</span> /usr/local/etc/bash_completion.d/dprint.bash
+</code></pre>
+<h2 id="diagnostic-commands-and-flags" tabindex="-1"><a class="header-anchor" href="#diagnostic-commands-and-flags">Diagnostic Commands and Flags</a></h2>
+<h3 id="outputting-file-paths" tabindex="-1"><a class="header-anchor" href="#outputting-file-paths">Outputting file paths</a></h3>
+<p>Sometimes you may not be sure what files dprint is picking up and formatting. To check, use the <code>output-file-paths</code> subcommand to see all the resolved file paths for the current plugins based on the CLI arguments and configuration.</p>
+<pre><code class="language-sh hljs language-bash">dprint output-file-paths
+</code></pre>
+<p>Example output:</p>
+<pre><code class="language-sh hljs language-bash">C:\dev\my-project\scripts\build-homepage.js
+C:\dev\my-project\scripts\build-schemas.js
+C:\dev\my-project\website\playground\config-overrides.js
+C:\dev\my-project\website\playground\src\components\ExternalLink.tsx
+C:\dev\my-project\website\playground\src\components\index.ts
+C:\dev\my-project\website\playground\src\components\Spinner.tsx
+...etc...
+</code></pre>
+<h3 id="outputting-resolved-configuration" tabindex="-1"><a class="header-anchor" href="#outputting-resolved-configuration">Outputting resolved configuration</a></h3>
+<p>When diagnosing configuration issues it might be useful to find out what the internal lower level configuration used by the plugins is. To see that, use the following command:</p>
+<pre><code class="language-sh hljs language-bash">dprint output-resolved-config
+</code></pre>
+<p>Example output (JSON):</p>
+<pre><code class="language-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"typescript"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"arguments.preferHanging"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arguments.preferSingleLine"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arguments.trailingCommas"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"onlyMultiLine"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arrayExpression.preferHanging"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arrayExpression.preferSingleLine"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arrayExpression.trailingCommas"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"onlyMultiLine"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"arrayPattern.preferHanging"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-comment">// ...etc...</span>
+    <span class="hljs-attr">"whileStatement.singleBodyPosition"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"nextLine"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"whileStatement.spaceAfterWhileKeyword"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"whileStatement.useBraces"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"preferNone"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"json"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"commentLine.forceSpaceAfterSlashes"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"indentWidth"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"lineWidth"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">160</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"newLineKind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"lf"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"useTabs"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="outputting-format-times" tabindex="-1"><a class="header-anchor" href="#outputting-format-times">Outputting format times</a></h3>
+<p>It can be useful to know what files take a long time to format as you may consider skipping them. To see this information, use the following command:</p>
+<pre><code class="language-sh hljs language-bash">dprint output-format-times
+</code></pre>
+<p>Example output:</p>
+<pre><code class="language-text hljs language-plaintext">0ms - C:\dev\my-project\dprint.json
+0ms - C:\dev\my-project\README.md
+1ms - C:\dev\my-project\other-file.md
+2ms - C:\dev\my-project\package.json
+2ms - C:\dev\my-project\my-markdown-file.md
+4ms - C:\dev\my-project\test.ts
+5ms - C:\dev\my-project\docs\info.md
+16ms - C:\dev\my-project\my-file.ts
+46ms - C:\dev\my-project\docs\overview.md
+54ms - C:\dev\my-project\build.js
+</code></pre>
+<h3 id="log-level" tabindex="-1"><a class="header-anchor" href="#log-level">Log Level</a></h3>
+<p>To adjust your logging level, use the <code>--log-level</code> flag (defaults to <code>--log-level=info</code>).</p>
+<ul>
+<li><code>silent</code> - Outputs nothing.</li>
+<li><code>error</code> - Outputs fatal error messages.</li>
+<li><code>warn</code> - Additionally outputs warnings.</li>
+<li><code>info</code> - Additionally outputs informational messages.</li>
+<li><code>debug</code> - Additionally outputs debug messages.</li>
+</ul>
+<h4 id="debug-logging" tabindex="-1"><a class="header-anchor" href="#debug-logging">Debug Logging</a></h4>
+<p>Take note that <code>--log-level=debug</code> is very useful to see what's going on under the hood.</p>
+<p>For example:</p>
+<pre><code class="language-sh hljs language-bash">dprint check --log-level=debug
+</code></pre>
+<p>Example output:</p>
+<pre><code class="language-text hljs language-plaintext">[DEBUG] Getting cache directory.
+[DEBUG] Reading file: C:\Users\user\AppData\Local\Dprint\Dprint\cache\cache-manifest.json
+[DEBUG] Checking path exists: ./dprint.json
+[DEBUG] Reading file: V:\dev\my-project\dprint.json
+[DEBUG] Globbing: ["**/*.{ts,tsx,js,jsx,json}", "!website/playground/build", "!scripts/build-website", "!**/dist", "!**/target", "!**/wasm", "!**/*-lock.json", "!**/node_modules"]
+[DEBUG] Finished globbing in 12ms
+[DEBUG] Reading file: C:\Users\user\AppData\Local\Dprint\Dprint\cache\typescript-0.19.2.compiled_wasm
+[DEBUG] Reading file: C:\Users\user\AppData\Local\Dprint\Dprint\cache\json-0.4.1.compiled_wasm
+[DEBUG] Creating instance of dprint-plugin-typescript
+[DEBUG] Creating instance of dprint-plugin-jsonc
+[DEBUG] Created instance of dprint-plugin-jsonc in 9ms
+[DEBUG] Reading file: V:\dev\my-project\website\playground\tsconfig.json
+[DEBUG] Reading file: V:\dev\my-project\website\assets\schemas\v0.json
+[DEBUG] Reading file: V:\dev\my-project\dprint.json
+[DEBUG] Formatted file: V:\dev\my-project\website\assets\schemas\v0.json in 2ms
+[DEBUG] Formatted file: V:\dev\my-project\dprint.json in 0ms
+[DEBUG] Formatted file: V:\dev\my-project\website\playground\tsconfig.json in 0ms
+[DEBUG] Created instance of dprint-plugin-typescript in 35ms
+[DEBUG] Reading file: V:\dev\my-project\website\playground\public\formatter.worker.js
+[DEBUG] Reading file: V:\dev\my-project\website\assets\formatter\v1.js
+[DEBUG] Reading file: V:\dev\my-project\website\playground\src\plugins\getPluginInfo.ts
+[DEBUG] Formatted file: V:\dev\my-project\website\playground\public\formatter.worker.js in 22ms
+[DEBUG] Formatted file: V:\dev\my-project\website\assets\formatter\v1.js in 6ms
+[DEBUG] Formatted file: V:\dev\my-project\website\playground\src\plugins\getPluginInfo.ts in 4ms
+...etc....
+</code></pre>
+<p>This may be useful for finding files that are taking a long time to format and maybe should be excluded from formatting.</p>
+<h3 id="clearing-cache" tabindex="-1"><a class="header-anchor" href="#clearing-cache">Clearing Cache</a></h3>
+<p>Internally, a cache is used to avoid re-downloading files. It may be useful in some scenarios to clear this cache by running:</p>
+<pre><code class="language-sh hljs language-bash">dprint clear-cache
+</code></pre>
+
+    </div>
+  </div>
+</section>
+
+    <footer class="footer">
+      <div>
+        <div class="level">
+          <div class="level-left">
+            <p class="level-item">
+              <a href="/">Home</a>
+            </p>
+            <p class="level-item">
+              <a href="/contact">Contact Us</a>
+            </p>
+          </div>
+          <div class="level-right">
+            <p class="level-item">
+              <a href="https://twitter.com/dprintfmt">Twitter</a>
+            </p>
+            <p class="level-item">
+              <a href="https://github.com/dprint">GitHub</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  
+
+</body></html>

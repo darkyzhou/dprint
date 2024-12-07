@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <script async="" src="/scripts.js"></script>
+    <meta charset="utf-8">
+    <title>Jupyter Plugin - dprint - Code Formatter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Documentation on the Jupyter Notebook code block formatting plugin for dprint.">
+    <meta name="author" content="Dprint Code Formatting">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@dprintfmt">
+    <meta name="twitter:title" content="Jupyter Plugin">
+    <meta name="twitter:description" content="Documentation on the Jupyter Notebook code block formatting plugin for dprint.">
+    
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <h1 class="title"><a href="/">dprint</a></h1>
+
+        <a role="button" id="navbarBurger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarLinks">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="navbarLinks">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/overview">Overview</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="/sponsor">Sponsor</a>
+          <a class="navbar-item" href="https://github.com/dprint/dprint" rel="noopener noreferrer">View on GitHub</a>
+        </div>
+      </div>
+    </nav>
+    <section class="section" id="content">
+  <div class="columns">
+    <aside class="menu column is-narrow" style="width: 210px">
+      <ul class="menu-list">
+        <li><a href="/overview">Overview</a></li>
+        <li><a href="/install">Install</a></li>
+        <li><a href="/setup">Setup</a></li>
+        <li><a href="/config">Configuration</a></li>
+        <li><a href="/cli">CLI</a></li>
+        <li><a href="/ci">Continuous Integration</a></li>
+      </ul>
+      <p class="menu-label">Plugins</p>
+      <ul class="menu-list">
+        <li><a href="/plugins">General</a></li>
+        <li><a href="/plugins/typescript">TypeScript / JavaScript</a></li>
+        <li><a href="/plugins/json">JSON</a></li>
+        <li><a href="/plugins/markdown">Markdown</a></li>
+        <li><a href="/plugins/toml">TOML</a></li>
+        <li><a href="/plugins/pretty_yaml">Pretty YAML</a></li>
+        <li><a href="/plugins/dockerfile">Dockerfile</a></li>
+        <li><a href="/plugins/rustfmt">Rustfmt</a></li>
+        <li><a href="/plugins/roslyn">Roslyn (C#/VB)</a></li>
+        <li><a href="/plugins/malva">Malva (CSS/SCSS/Sass/Less)</a></li>
+        <li><a href="/plugins/markup_fmt">Markup_fmt (HTML/Vue/Svelte/Astro)</a></li>
+        <li><a href="/plugins/prettier">Prettier</a></li>
+        <li><a href="/plugins/biome">Biome (JS/TS/JSON)</a></li>
+        <li><a href="/plugins/pretty_graphql">Pretty GraphQL</a></li>
+        <li><a href="/plugins/ruff">Ruff (Python)</a></li>
+        <li><a href="/plugins/jupyter">Jupyter</a></li>
+        <li><a href="/plugins/exec">Exec (Many CLIs)</a></li>
+        <li><a href="/plugin-dev">Creating a Plugin</a></li>
+      </ul>
+    </aside>
+    <div id="content-body" class="column documentation">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/plugins">Plugins</a></li>
+    <li><a href="/plugins/jupyter">Jupyter</a></li>
+  </ul>
+</nav>
+<h1>Jupyter Plugin</h1>
+<p>Formats code blocks in Jupyter Notebooks.</p>
+<h2 id="install-and-setup" tabindex="-1"><a class="header-anchor" href="#install-and-setup">Install and Setup</a></h2>
+<p>In your project's directory with a dprint.json file, run:</p>
+<pre><code class="language-shellsession hljs language-shell">dprint config add jupyter
+</code></pre>
+<p>This will update your config file to have an entry for the plugin.</p>
+<pre><code class="language-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"plugins"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"https://plugins.dprint.dev/jupyter-x.x.x.wasm"</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Then add some additional formatting plugins to format the code blocks with. For example:</p>
+<pre><code class="language-shellsession hljs language-shell">dprint config add typescript
+dprint config add markdown
+dprint config add ruff
+</code></pre>
+<p>If you find a code block isn't being formatted with a plugin, please verify it's not a syntax error. After, open an <a href="https://github.com/dprint/dprint-plugin-jupyter/issues">issue</a> about adding support for that plugin (if you're interested in opening a PR, it's potentially an easy contribution).</p>
+<h2 id="configuration" tabindex="-1"><a class="header-anchor" href="#configuration">Configuration</a></h2>
+<p>Set the configuration for code blocks in other plugins.</p>
+
+    </div>
+  </div>
+</section>
+
+    <footer class="footer">
+      <div>
+        <div class="level">
+          <div class="level-left">
+            <p class="level-item">
+              <a href="/">Home</a>
+            </p>
+            <p class="level-item">
+              <a href="/contact">Contact Us</a>
+            </p>
+          </div>
+          <div class="level-right">
+            <p class="level-item">
+              <a href="https://twitter.com/dprintfmt">Twitter</a>
+            </p>
+            <p class="level-item">
+              <a href="https://github.com/dprint">GitHub</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  
+
+</body></html>
