@@ -5,7 +5,7 @@ import decompress from "npm:decompress@4.2.1";
 interface Package {
   zipFileName: string;
   os: "win32" | "darwin" | "linux";
-  cpu: "x64" | "arm64" | "riscv64";
+  cpu: "x64" | "arm64" | "riscv64" | "loong64";
   libc?: "glibc" | "musl";
 }
 
@@ -50,6 +50,11 @@ const packages: Package[] = [{
   zipFileName: "dprint-riscv64gc-unknown-linux-gnu.zip",
   os: "linux",
   cpu: "riscv64",
+  libc: "glibc",
+}, {
+  zipFileName: "dprint-loongarch64-unknown-linux-gnu.zip",
+  os: "linux",
+  cpu: "loong64",
   libc: "glibc",
 }];
 

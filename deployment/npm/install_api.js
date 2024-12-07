@@ -79,10 +79,12 @@ function getTarget() {
   }
 }
 
+const supportedArchs = ["x64", "arm64", "riscv64", "loong64"];
+
 function getArch() {
   const arch = os.arch();
-  if (arch !== "arm64" && arch !== "x64" && arch !== "riscv64") {
-    throw new Error("Unsupported architecture " + os.arch() + ". Only x64, aarch64, and riscv64 binaries are available.");
+  if (!supportedArchs.includes(arch)) {
+    throw new Error("Unsupported architecture " + os.arch() + ". Only " + supportedArchs.join(", ") + " binaries are available.");
   }
   return arch;
 }
